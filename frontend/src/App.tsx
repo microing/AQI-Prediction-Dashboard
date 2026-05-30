@@ -88,7 +88,7 @@ function App() {
             margin: 0,
           }}
         >
-          🌏 India Air Quality Dashboard
+          India Air Quality Dashboard
         </h1>
 
         <button
