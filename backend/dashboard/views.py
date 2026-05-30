@@ -74,21 +74,26 @@ def get_city_aqi(request, city):
 
 
 def get_history(request):
+    try:
+        records = AQIRecord.objects.order_by('-created_at')[:10]
 
-    records = AQIRecord.objects.order_by('-created_at')[:10]
+        data = []
 
-    data = []
+        for record in records:
+            data.append({
+                "city": record.city,
+                "aqi": record.aqi,
+                "pm25": record.pm25,
+                "pm10": record.pm10,
+                "created_at": record.created_at.strftime("%Y-%m-%d %H:%M:%S")
+            })
 
-    for record in records:
-        data.append({
-            "city": record.city,
-            "aqi": record.aqi,
-            "pm25": record.pm25,
-            "pm10": record.pm10,
-            "created_at": record.created_at.strftime("%Y-%m-%d %H:%M:%S")
-        })
+        return JsonResponse(data, safe=False)
 
-    return JsonResponse(data, safe=False)
+    except Exception as e:
+        return JsonResponse({
+            "error": str(e)
+        }, status=500)
 
 
 def get_all_capitals_aqi(request):
