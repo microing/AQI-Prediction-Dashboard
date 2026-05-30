@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:8000/api";
+const API_URL = "https://aqi-dashboard-backend.onrender.com";
 
 export const getAQI = async (city: string) => {
   const response = await axios.get(
